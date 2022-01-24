@@ -13,11 +13,11 @@ while True:
     if not line:
         break
     cursor.execute("INSERT INTO messages VALUES (?, ?)", (line[0:line.find(']  ')+1], line[line.find(']  ')+3:-1]))
-    # print(line[0:line.find(']  ')+1])
-    # print(line[line.find(']  ')+3:-1])
+
+connection.commit()
 
 file1.close()
 file1 = open('b.txt', 'r')
 
-rows = cursor.execute('SELECT * FROM messages')
+rows = cursor.execute('SELECT COUNT(*) FROM messages')
 print(rows.rowcount)
