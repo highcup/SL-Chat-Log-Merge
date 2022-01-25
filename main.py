@@ -47,6 +47,7 @@ file.close()
 #write to file
 file = open('c.txt', 'w')
 writeMessages(cursor, file)
+file.close()
 
 # close connection
 connection.close()
