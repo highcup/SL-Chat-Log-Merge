@@ -17,6 +17,12 @@ def printMessages (cursor) :
     for row in data :
         print(row[0] + " " + row[1])
 
+# write messages to file
+def writeMessages (cursor, file) :
+    data = cursor.execute("SELECT timestamp, message FROM messages").fetchall()
+    for row in data :
+        file.write(row[0] + " " + row[1] + "\n")
+
 # connect to temp database connection
 connection = sqlite3.connect("")
 # create cursor
@@ -35,7 +41,12 @@ file = open('b.txt', 'r')
 loadMessages(cursor, file)
 # close file
 file.close()
-# print out all messages
-printMessages(cursor)
+# # print out all messages
+# printMessages(cursor)
+
+#write to file
+file = open('c.txt', 'w')
+writeMessages(cursor, file)
+
 # close connection
 connection.close()
