@@ -7,7 +7,7 @@ def createDB (cursor) :
 
 # read in file and load into database
 def loadMessages (cursor, file) :
-    with open(file, "r") as f :
+    with open(file, "r", encoding="utf8") as f :
         for line in f :
             cursor.execute("INSERT INTO messages VALUES (?, ?)", (line[0:line.find(']  ')+1], line[line.find(']  ')+3:-1]))
         connection.commit()
@@ -21,7 +21,7 @@ def printMessages (cursor) :
 # write messages to file
 def writeMessages (cursor, file) :
     data = cursor.execute("SELECT timestamp, message FROM messages").fetchall()
-    with open(file, "w") as f :
+    with open(file, "w", encoding="utf8") as f :
         for row in data :
             f.write(row[0] + " " + row[1] + "\n")
 
@@ -32,7 +32,7 @@ cursor = connection.cursor()
 # create database
 createDB(cursor)
 # load file into database
-loadMessages(cursor, "a.txt")
+loadMessages(cursor, "chat.txt")
 # load file into database
 loadMessages(cursor, "b.txt")
 # # print out all messages
